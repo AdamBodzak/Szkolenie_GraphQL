@@ -12,6 +12,6 @@ const data = {
     interestingUrls: ["https://kusrsrecta.pl","https://64bits.com"]
 }
 
-const server = new ApolloServer({ typeDefs, rootValue: data });
+const server = new ApolloServer({ typeDefs, rootValue: data, playground: true, introspection:true });
 
 server.listen({ port: PORT }).then((result) => console.log(result.url))
