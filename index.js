@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
-const PORT = process.env.Port || 4000
+const PORT = process.env.PORT || 4000
 const typeDefs = gql`
     type Query {
         greeting: String
