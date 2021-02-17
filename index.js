@@ -9,6 +9,7 @@ const typeDefs = gql`
         fewRandomDiceThrows: [Int]
         pi: Float
         isTodayFriday: Boolean
+        randomCoinTossesUntilTrue: [Boolean]
     }
 `;
 let number = 1;
@@ -28,6 +29,14 @@ function rootValue() {
         return arrFewRandomDiceThrows;
     };
     const today = new Date();
+    const randomCoinTosses = () => Math.random() > 0.5;
+    const getRandomCoinTossesUntilTrue = () => {
+        const result = [];
+        do {
+            result.push(randomCoinTosses());
+        } while (!result[result.length-1])
+        return result;
+    };
     const data = {
         greeting: "Hello world!",
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
@@ -35,7 +44,8 @@ function rootValue() {
         counter: getCounter(),
         fewRandomDiceThrows: getFewRandomDiceThrows(),
         pi: Math.PI,
-        isTodayFriday: today.getDay() === 5
+        isTodayFriday: today.getDay() === 5,
+        randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue()
     };
     return data;
 };
