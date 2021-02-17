@@ -11,7 +11,11 @@ const typeDefs = gql`
 let number = 1;
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
-    const getCounter = () => number++;
+    const getCounter = () => {
+        number++;
+        console.log(number);
+        return number;
+    };
     const data = {
         greeting: "Hello world!",
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
