@@ -8,6 +8,7 @@ const typeDefs = gql`
         counter: Int
         fewRandomDiceThrows: [Int]
         pi: Float
+        isTodayFriday: Boolean
     }
 `;
 let number = 1;
@@ -26,13 +27,15 @@ function rootValue() {
         };
         return arrFewRandomDiceThrows;
     };
+    const today = new Date();
     const data = {
         greeting: "Hello world!",
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
         randomDiceThrow: getRandomDiceThrow(6),
         counter: getCounter(),
         fewRandomDiceThrows: getFewRandomDiceThrows(),
-        pi: Math.PI
+        pi: Math.PI,
+        isTodayFriday: today.getDay() === 5
     };
     return data;
 };
