@@ -6,21 +6,31 @@ const typeDefs = gql`
         interestingUrls: [String]
         randomDiceThrow: Int
         counter: Int
+        fewRandomDiceThrows: [Int]
     }
 `;
 let number = 1;
+let arrFewRandomDiceThrows = [];
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
-    const getCounter = () => {
-        number++;
-        console.log(number);
-        return number;
+    const getCounter = () => number++;
+    const getFewRandomDiceThrows = () => {
+        if (arrFewRandomDiceThrows.length<3) {
+            do {
+                arrFewRandomDiceThrows.push(getRandomDiceThrow(6));
+            } while (arrFewRandomDiceThrows.length<3)
+        } else if (arrFewRandomDiceThrows.length=7) {
+            arrFewRandomDiceThrows.shift();
+            arrFewRandomDiceThrows.push(getRandomDiceThrow(6));
+        };
+        return arrFewRandomDiceThrows;
     };
     const data = {
         greeting: "Hello world!",
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
         randomDiceThrow: getRandomDiceThrow(6),
-        counter: getCounter()
+        counter: getCounter(),
+        fewRandomDiceThrows: getFewRandomDiceThrows()
     };
     return data;
 };
