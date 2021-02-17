@@ -7,6 +7,7 @@ const typeDefs = gql`
         randomDiceThrow: Int
         counter: Int
         fewRandomDiceThrows: [Int]
+        pi: Float
     }
 `;
 let number = 1;
@@ -30,7 +31,8 @@ function rootValue() {
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
         randomDiceThrow: getRandomDiceThrow(6),
         counter: getCounter(),
-        fewRandomDiceThrows: getFewRandomDiceThrows()
+        fewRandomDiceThrows: getFewRandomDiceThrows(),
+        pi: Math.PI
     };
     return data;
 };
