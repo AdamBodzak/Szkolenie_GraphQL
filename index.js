@@ -5,14 +5,18 @@ const typeDefs = gql`
         greeting: String
         interestingUrls: [String]
         randomDiceThrow: Int
+        counter: Int
     }
 `;
+let number = 1;
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
+    const getCounter = () => number++;
     const data = {
         greeting: "Hello world!",
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
-        randomDiceThrow: getRandomDiceThrow(6)
+        randomDiceThrow: getRandomDiceThrow(6),
+        counter: getCounter()
     };
     return data;
 };
