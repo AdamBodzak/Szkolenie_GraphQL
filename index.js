@@ -12,7 +12,7 @@ const typeDefs = gql`
         randomCoinTossesUntilTrue: [Boolean]
         today: DayOfWeek
         workDay: [DayOfWeek]
-        month: MonthOfYear
+        currentMonth: Month
     }
     enum DayOfWeek {
         MON
@@ -23,7 +23,7 @@ const typeDefs = gql`
         FRI
         SUN
     }
-    enum MonthOfYear {
+    enum Month {
         JAN
         FEB
         MAR
@@ -77,7 +77,7 @@ function rootValue() {
         randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
         today: DAY_OF_WEEK[today.getDay()],
         workDay: DAY_OF_WEEK.slice(1,6),
-        month: MOUNT_OF_YER[today.getMonth()]
+        currentMonth: MOUNT_OF_YER[today.getMonth()]
     };
     return data;
 };
