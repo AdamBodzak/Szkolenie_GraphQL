@@ -16,6 +16,7 @@ const typeDefs = gql`
         currentMonth: Month!
         monthsElapsed: [Month!]!
         unpredicTableA: [Int!]
+        unpredicTableB: [Int]!
     }
     enum DayOfWeek {
         MON
@@ -43,7 +44,8 @@ const typeDefs = gql`
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
-let NumberUnpredicTableA = 1;
+let CallingNumberUnpredicTableA = 1;
+let CallingNumberUnpredicTableB = 1;
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
@@ -70,8 +72,21 @@ function rootValue() {
         return result;
     };
     const getUnpredicTableA = () => {
-        const arrResult = (NumberUnpredicTableA % 2 === 0) ? null : [1,2,3];
-        NumberUnpredicTableA++;
+        const arrResult = (CallingNumberUnpredicTableA % 2 === 0) ? null : [1,2,3];
+        CallingNumberUnpredicTableA++;
+        return arrResult;
+    };
+    const getUnpredicTableB = () => {
+        const arrResult = [];
+        if (CallingNumberUnpredicTableB === 1) {
+            arrResult.splice(0,0,null,2,3);
+        } else if (CallingNumberUnpredicTableB === 2) {
+            arrResult.splice(0,0,1,null,3);
+        } else if (CallingNumberUnpredicTableB === 3) {
+            arrResult.splice(0,0,1,2,null);
+        };
+        CallingNumberUnpredicTableB++;
+        CallingNumberUnpredicTableB = (CallingNumberUnpredicTableB === 4) ? 1 : CallingNumberUnpredicTableB;
         return arrResult;
     };
     const data = {
@@ -88,7 +103,8 @@ function rootValue() {
         workDay: DAY_OF_WEEK.slice(1,6),
         currentMonth: MOUNT_OF_YER[today.getMonth()],
         monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth()),
-        unpredicTableA: getUnpredicTableA()
+        unpredicTableA: getUnpredicTableA(),
+        unpredicTableB: getUnpredicTableB()
     };
     return data;
 };
