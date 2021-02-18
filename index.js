@@ -10,11 +10,22 @@ const typeDefs = gql`
         pi: Float
         isTodayFriday: Boolean
         randomCoinTossesUntilTrue: [Boolean]
+        today: DayOfWeek
+    }
+    enum DayOfWeek {
+        MON
+        TUE
+        WED
+        THU
+        SET
+        FRI
+        SUN
     }
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
 function rootValue() {
+
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
     const getFewRandomDiceThrows = () => {
@@ -29,6 +40,7 @@ function rootValue() {
         return arrFewRandomDiceThrows;
     };
     const today = new Date();
+    const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const randomCoinTosses = () => Math.random() > 0.5;
     const getRandomCoinTossesUntilTrue = () => {
         const result = [];
@@ -45,7 +57,8 @@ function rootValue() {
         fewRandomDiceThrows: getFewRandomDiceThrows(),
         pi: Math.PI,
         isTodayFriday: today.getDay() === 5,
-        randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue()
+        randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
+        today: DAY_OF_WEEK[today.getDay()]
     };
     return data;
 };
