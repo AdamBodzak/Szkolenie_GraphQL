@@ -11,6 +11,7 @@ const typeDefs = gql`
         isTodayFriday: Boolean
         randomCoinTossesUntilTrue: [Boolean]
         today: DayOfWeek
+        workDay: [DayOfWeek]
     }
     enum DayOfWeek {
         MON
@@ -58,7 +59,8 @@ function rootValue() {
         pi: Math.PI,
         isTodayFriday: today.getDay() === 5,
         randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
-        today: DAY_OF_WEEK[today.getDay()]
+        today: DAY_OF_WEEK[today.getDay()],
+        workDay: DAY_OF_WEEK.slice(1,6)
     };
     return data;
 };
