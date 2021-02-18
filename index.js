@@ -2,18 +2,19 @@ const { ApolloServer, gql } = require("apollo-server");
 const PORT = process.env.PORT || 4000;
 const typeDefs = gql`
     type Query {
-        greeting: String
-        interestingUrls: [String]
-        randomDiceThrow: Int
-        counter: Int
-        fewRandomDiceThrows: [Int]
-        pi: Float
-        isTodayFriday: Boolean
-        randomCoinTossesUntilTrue: [Boolean]
-        today: DayOfWeek
-        workDay: [DayOfWeek]
-        currentMonth: Month
-        monthsElapsed: [Month]
+        greeting: String!
+        schroedingersCatGreeting: String
+        interestingUrls: [String!]!
+        randomDiceThrow: Int!
+        counter: Int!
+        fewRandomDiceThrows: [Int!]!
+        pi: Float!
+        isTodayFriday: Boolean!
+        randomCoinTossesUntilTrue: [Boolean!]!
+        today: DayOfWeek!
+        workDay: [DayOfWeek!]!
+        currentMonth: Month!
+        monthsElapsed: [Month!]!
     }
     enum DayOfWeek {
         MON
@@ -68,6 +69,7 @@ function rootValue() {
     };
     const data = {
         greeting: "Hello world!",
+        schroedingersCatGreeting: randomCoinTosses() ? "Miau" : null,
         interestingUrls: ["https://kusrsrecta.pl", "https://64bits.com"],
         randomDiceThrow: getRandomDiceThrow(6),
         counter: getCounter(),
