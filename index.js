@@ -12,6 +12,7 @@ const typeDefs = gql`
         randomCoinTossesUntilTrue: [Boolean]
         today: DayOfWeek
         workDay: [DayOfWeek]
+        month: MonthOfYear
     }
     enum DayOfWeek {
         MON
@@ -22,11 +23,24 @@ const typeDefs = gql`
         FRI
         SUN
     }
+    enum MonthOfYear {
+        JAN
+        FEB
+        MAR
+        APR
+        MAY
+        JUN
+        JUL
+        AUG
+        SEP
+        OCT
+        NOV
+        DEC
+    }
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
 function rootValue() {
-
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
     const getFewRandomDiceThrows = () => {
@@ -41,7 +55,9 @@ function rootValue() {
         return arrFewRandomDiceThrows;
     };
     const today = new Date();
+    console.log(today.getMonth());
     const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const MOUNT_OF_YER = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     const randomCoinTosses = () => Math.random() > 0.5;
     const getRandomCoinTossesUntilTrue = () => {
         const result = [];
@@ -60,7 +76,8 @@ function rootValue() {
         isTodayFriday: today.getDay() === 5,
         randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
         today: DAY_OF_WEEK[today.getDay()],
-        workDay: DAY_OF_WEEK.slice(1,6)
+        workDay: DAY_OF_WEEK.slice(1,6),
+        month: MOUNT_OF_YER[today.getMonth()]
     };
     return data;
 };
