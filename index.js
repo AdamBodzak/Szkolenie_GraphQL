@@ -15,6 +15,7 @@ const typeDefs = gql`
         workDay: [DayOfWeek!]!
         currentMonth: Month!
         monthsElapsed: [Month!]!
+        unpredicTableA: [Int!]
     }
     enum DayOfWeek {
         MON
@@ -42,6 +43,7 @@ const typeDefs = gql`
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
+let NumberUnpredicTableA = 1;
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
@@ -67,6 +69,11 @@ function rootValue() {
         } while (!result[result.length-1])
         return result;
     };
+    const getUnpredicTableA = () => {
+        const arrResult = (NumberUnpredicTableA % 2 === 0) ? null : [1,2,3];
+        NumberUnpredicTableA++;
+        return arrResult;
+    };
     const data = {
         greeting: "Hello world!",
         schroedingersCatGreeting: randomCoinTosses() ? "Miau" : null,
@@ -80,7 +87,8 @@ function rootValue() {
         today: DAY_OF_WEEK[today.getDay()],
         workDay: DAY_OF_WEEK.slice(1,6),
         currentMonth: MOUNT_OF_YER[today.getMonth()],
-        monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth())
+        monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth()),
+        unpredicTableA: getUnpredicTableA()
     };
     return data;
 };
