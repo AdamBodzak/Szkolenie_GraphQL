@@ -13,6 +13,7 @@ const typeDefs = gql`
         today: DayOfWeek
         workDay: [DayOfWeek]
         currentMonth: Month
+        monthsElapsed: [Month]
     }
     enum DayOfWeek {
         MON
@@ -55,7 +56,6 @@ function rootValue() {
         return arrFewRandomDiceThrows;
     };
     const today = new Date();
-    console.log(today.getMonth());
     const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const MOUNT_OF_YER = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     const randomCoinTosses = () => Math.random() > 0.5;
@@ -77,7 +77,8 @@ function rootValue() {
         randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
         today: DAY_OF_WEEK[today.getDay()],
         workDay: DAY_OF_WEEK.slice(1,6),
-        currentMonth: MOUNT_OF_YER[today.getMonth()]
+        currentMonth: MOUNT_OF_YER[today.getMonth()],
+        monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth())
     };
     return data;
 };
