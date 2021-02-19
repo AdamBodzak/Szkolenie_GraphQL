@@ -17,6 +17,7 @@ const typeDefs = gql`
         monthsElapsed: [Month!]!
         unpredicTableA: [Int!]
         unpredicTableB: [Int]!
+        unpredicTableC: [[Int!]!]!
     }
     enum DayOfWeek {
         MON
@@ -44,6 +45,7 @@ const typeDefs = gql`
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
+let arrUnpredicTableC = [];
 let CallingNumberUnpredicTableA = 1;
 let CallingNumberUnpredicTableB = 1;
 function rootValue() {
@@ -89,6 +91,20 @@ function rootValue() {
         CallingNumberUnpredicTableB = (CallingNumberUnpredicTableB === 4) ? 1 : CallingNumberUnpredicTableB;
         return arrResult;
     };
+    let numberTableC = 0;
+    const getUnpredicTableC = () => {
+        let result = [];
+        if (numberTableC === 0) {
+            result.unshift([]);
+            numberTableC = 1;
+        } else {
+            result[0].forEach(el => {arrLup.push(el)});
+            console.log(result);
+            arrLup.push(arrLup.length + 1);
+            result.unshift(arrLup);
+        };
+        return result;
+    };
     const data = {
         greeting: "Hello world!",
         schroedingersCatGreeting: randomCoinTosses() ? "Miau" : null,
@@ -104,7 +120,8 @@ function rootValue() {
         currentMonth: MOUNT_OF_YER[today.getMonth()],
         monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth()),
         unpredicTableA: getUnpredicTableA(),
-        unpredicTableB: getUnpredicTableB()
+        unpredicTableB: getUnpredicTableB(),
+        unpredicTableC: getUnpredicTableC()
     };
     return data;
 };
