@@ -45,9 +45,10 @@ const typeDefs = gql`
 `;
 let number = 1;
 let arrFewRandomDiceThrows = [];
-let arrUnpredicTableC = [];
 let CallingNumberUnpredicTableA = 1;
 let CallingNumberUnpredicTableB = 1;
+let numberTableC = 0;
+let arrUnpredicTableC = [];
 function rootValue() {
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
@@ -91,19 +92,17 @@ function rootValue() {
         CallingNumberUnpredicTableB = (CallingNumberUnpredicTableB === 4) ? 1 : CallingNumberUnpredicTableB;
         return arrResult;
     };
-    let numberTableC = 0;
     const getUnpredicTableC = () => {
-        let result = [];
+        let arrLup = [];
         if (numberTableC === 0) {
-            result.unshift([]);
+            arrUnpredicTableC.unshift([]);
             numberTableC = 1;
         } else {
-            result[0].forEach(el => {arrLup.push(el)});
-            console.log(result);
+            arrUnpredicTableC[0].forEach(el => {arrLup.push(el)});
             arrLup.push(arrLup.length + 1);
-            result.unshift(arrLup);
+            arrUnpredicTableC.unshift(arrLup);
         };
-        return result;
+        return arrUnpredicTableC;
     };
     const data = {
         greeting: "Hello world!",
