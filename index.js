@@ -21,7 +21,14 @@ const typeDefs = gql`
         unpredicTableC: [[Int!]!]!
         randomQuote: Quote!
         fewRandomQuotes: [Quote!]!
+        time: Time
     }
+
+    type Time {
+    hours: Float
+    minutes: Float
+    seconds: Float
+  }
 
     type Quote {
         text: String!
@@ -127,6 +134,18 @@ function rootValue() {
 
         return arrRandomQuotes;
     };
+
+    const getTime = () => {
+        const hours = today.getHours();
+        const minute = today.getMinutes();
+        const second = today.getSeconds();
+        return {
+            hours: hours,
+            minutes: minute,
+            seconds: second
+        }
+    };
+
     const data = {
         greeting: "Hello world!",
         schroedingersCatGreeting: randomCoinTosses() ? "Miau" : null,
@@ -145,7 +164,9 @@ function rootValue() {
         unpredicTableB: getUnpredicTableB(),
         unpredicTableC: getUnpredicTableC(),
         randomQuote: Quotes.getQuote(),
-        fewRandomQuotes: getFewRandomQuotes()
+        fewRandomQuotes: getFewRandomQuotes(),
+        time: getTime(),
+
     };
     return data;
 };
