@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
+const Quotes = require("inspirational-quotes");
 const PORT = process.env.PORT || 4000;
 const typeDefs = gql`
     type Query {
@@ -18,7 +19,14 @@ const typeDefs = gql`
         unpredicTableA: [Int!]
         unpredicTableB: [Int]!
         unpredicTableC: [[Int!]!]!
+        randomQuote: Quote!
     }
+
+    type Quote {
+        text: String!
+        author: String!
+    }
+
     enum DayOfWeek {
         MON
         TUE
@@ -120,7 +128,8 @@ function rootValue() {
         monthsElapsed: MOUNT_OF_YER.slice(0,today.getMonth()),
         unpredicTableA: getUnpredicTableA(),
         unpredicTableB: getUnpredicTableB(),
-        unpredicTableC: getUnpredicTableC()
+        unpredicTableC: getUnpredicTableC(),
+        randomQuote: Quotes.getQuote()
     };
     return data;
 };
