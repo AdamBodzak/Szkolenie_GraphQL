@@ -20,6 +20,7 @@ const typeDefs = gql`
         unpredicTableB: [Int]!
         unpredicTableC: [[Int!]!]!
         randomQuote: Quote!
+        fewRandomQuotes: [Quote!]!
     }
 
     type Quote {
@@ -112,6 +113,20 @@ function rootValue() {
         };
         return arrUnpredicTableC;
     };
+    const getFewRandomQuotes = () => {
+        let arrRandomQuotes = [];
+        let randomNumber = 0;
+
+        do {
+            randomNumber = Math.ceil(Math.random() * 5);
+        } while (randomNumber < 3);
+
+        for (let i = 0; i < randomNumber; i++) {
+            arrRandomQuotes.push(Quotes.getQuote());
+        };
+
+        return arrRandomQuotes;
+    };
     const data = {
         greeting: "Hello world!",
         schroedingersCatGreeting: randomCoinTosses() ? "Miau" : null,
@@ -129,7 +144,8 @@ function rootValue() {
         unpredicTableA: getUnpredicTableA(),
         unpredicTableB: getUnpredicTableB(),
         unpredicTableC: getUnpredicTableC(),
-        randomQuote: Quotes.getQuote()
+        randomQuote: Quotes.getQuote(),
+        fewRandomQuotes: getFewRandomQuotes()
     };
     return data;
 };
