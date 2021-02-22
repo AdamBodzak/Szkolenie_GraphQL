@@ -21,14 +21,28 @@ const typeDefs = gql`
         unpredicTableC: [[Int!]!]!
         randomQuote: Quote!
         fewRandomQuotes: [Quote!]!
-        time: Time
+        date: Date!
+        time: Time!
+        dateTime: DateTime!
+    }
+
+    type Date {
+    year: Float!
+    month: Month!
+    day: Float!
+    weekDay: DayOfWeek!
     }
 
     type Time {
-    hours: Float
-    minutes: Float
-    seconds: Float
-  }
+    hours: Float!
+    minutes: Float!
+    seconds: Float!
+    }
+
+    type DateTime {
+    date: Date!
+    time: Time!
+    }
 
     type Quote {
         text: String!
@@ -135,6 +149,19 @@ function rootValue() {
         return arrRandomQuotes;
     };
 
+    const getDateToday = () => {
+        const year = today.getFullYear();
+        const month = MOUNT_OF_YER[today.getMonth()];
+        const day = today.getDate();
+        const weekDay = DAY_OF_WEEK[today.getDay()];
+        return {
+          year: year,
+          month: month,
+          day: day,
+          weekDay: weekDay
+        };
+    };
+
     const getTime = () => {
         const hours = today.getHours();
         const minute = today.getMinutes();
@@ -143,7 +170,16 @@ function rootValue() {
             hours: hours,
             minutes: minute,
             seconds: second
-        }
+        };
+    };
+
+    const getDateTime = () => {
+        const date = getDateToday();
+        const time = getTime();
+        return {
+          date: date,
+          time: time
+        };
     };
 
     const data = {
@@ -166,7 +202,8 @@ function rootValue() {
         randomQuote: Quotes.getQuote(),
         fewRandomQuotes: getFewRandomQuotes(),
         time: getTime(),
-
+        date: getDateToday(),
+        dateTime: getDateTime()
     };
     return data;
 };
