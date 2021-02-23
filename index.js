@@ -2,7 +2,10 @@ const { ApolloServer, gql } = require("apollo-server");
 const Quotes = require("inspirational-quotes");
 const PORT = process.env.PORT || 4000;
 const typeDefs = gql`
-    type Query {
+    schema {
+        query: OurQuery
+    }
+    type OurQuery {
         greeting: String!
         schroedingersCatGreeting: String
         interestingUrls: [String!]!
