@@ -7,6 +7,7 @@ let CallingNumberUnpredicTableB = 1;
 let numberTableC = 0;
 let arrUnpredicTableC = [];
 function rootValue() {
+
     const getRandomDiceThrow = (sides) => Math.ceil(Math.random() * sides);
     const getCounter = () => number++;
     const getFewRandomDiceThrows = () => {
