@@ -21,10 +21,19 @@ const RANDOM_QUOTE_QUERY = gql`
 `;
 
 function RandomQuote() {
-  const { data, loading} = useQuery(RANDOM_QUOTE_QUERY);
+  const { data, loading, error} = useQuery(RANDOM_QUOTE_QUERY, {
+    onError: (error) => {
+      console.log('error', error);
+      window.lastError = error;
+    },
+    errorPolicy: "all"
+  });
   if (loading) {
     return 'Quote is loading...';
-  }
+  };
+  if (error) {
+    return 'Could not load quote!';
+  };
   const { text, author } = data.randomQuote;
   return <Quote text={text} author={author} />
 };
