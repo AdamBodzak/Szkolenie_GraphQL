@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./App";
+import App from "./components/App";
 import {ApolloClient, InMemoryCache, HttpLink, ApolloProvider} from "@apollo/client";
 
 const URL = "https://tranquil-thicket-34015.herokuapp.com/";
