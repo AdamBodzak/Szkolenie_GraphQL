@@ -21,7 +21,7 @@ const RANDOM_QUOTE_QUERY = gql`
 `;
 
 function RandomQuote() {
-  const { data, loading, error} = useQuery(RANDOM_QUOTE_QUERY, {
+  const { data, loading, error, refetch} = useQuery(RANDOM_QUOTE_QUERY, {
     onError: (error) => {
       console.log('error', error);
       window.lastError = error;
@@ -35,7 +35,12 @@ function RandomQuote() {
     return 'Could not load quote!';
   };
   const { text, author } = data.randomQuote;
-  return <Quote text={text} author={author} />
+  return (
+    <React.Fragment>
+      <Quote text={text} author={author} />
+      <button onClick={() => { refetch() }}>Get new quote</button>
+    </React.Fragment>
+  );
 };
 
 function Quote({text, author}) {
