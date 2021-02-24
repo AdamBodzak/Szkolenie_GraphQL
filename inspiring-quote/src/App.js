@@ -7,6 +7,8 @@ export default function App() {
     <div className="App">
       <h1>Inspiring Quote</h1>
       <RandomQuote />
+      <RandomQuote />
+      <RandomQuote />
     </div>
   );
 };
@@ -22,6 +24,8 @@ const RANDOM_QUOTE_QUERY = gql`
 
 function RandomQuote() {
   const { data, loading, error, refetch} = useQuery(RANDOM_QUOTE_QUERY, {
+    fetchPolicy: "no-cache"
+  },{
     onError: (error) => {
       console.log('error', error);
       window.lastError = error;
